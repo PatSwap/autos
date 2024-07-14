@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Car Price Predictions</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css_image/css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{ url_for('static', filename='css_image/css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body class = "teal lighten-4">
+  <style>
+
+    input[type=range]::-webkit-slider-thumb {
+      border-radius: 50%;
+      background-color: pink;
+    }
+    input[type=range]::-moz-range-thumb {
+      background-color: pink;
+    }
+    input[type=range]::-ms-thumb {
+      background-color: pink;
+    }
+  
+    /***** These are to edit the thumb and the text inside the thumb *****/
+    input[type=range] + .thumb {
+      background-color: rgb(239, 224, 243);
+    }
+    input[type=range] + .thumb.active .value {
+      color: rgb(0, 0, 0);
+    }
+  </style>
+  <style>
+      .error {
+        color: rgb(186, 227, 22);
+        font-size: 12px;
+        display: none; /* Hide error messages initially */
+      }
+  
+      .select-wrapper.invalid select {
+        border-color: red;
+      }
+  </style>
+  <nav class="teal lighten-4" role="navigation">
+    <div class="nav-wrapper container">
+
+      {% if output %}
+      <a id="logo-container" href="/predict" class="left black-text hide-on-med-and-down">Start Over</a>
+      {% endif %}
+
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Back to Home</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="/">Back to Home</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div style= "height:100%" id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br><br>
+        <div class="parallax"> <img class="responsive-img" src="{{ url_for('static', filename='css_image/car_background_calc.jpg')}}">
+        </div>
+        <style>
+          
+h1 {
+  text-shadow: 0 0 2px #000000;
+}
+h5 {
+  text-shadow: 0 0 2px #000000;
+}
+        </style>
+        {% if output %}
+        <h4 class="header center black-text teal lighten-4">In 1985,<br> A car with your given specifications would've cost: <br> <b>{{ output }}</b></h4>
+        {% else %}
+        <h1 class="header center white-text">Test the Model</h1>
+        {% endif %}
+        <div class="row center">
+          {% if output %}
+          &nbsp;
+          {% else %}
+          <h5 class="header col s12 white-text"><br>Select the specs, hit the Predict button and get the Car Price Estimate</h5>
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="divider"></div>
+  <div class="section">
+  </div> 
+
+  <div class="container valign-wrapper">
+    <form action="/predict" method="POST" name="ParamForm" id="LoneForm">
+      <div class="row">      
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name="make" required class="validate">
+                  <option value="" disabled selected>Choose Car Maker</option>
+                    {% for car in make %}
+                      <option value = "{{ car }}">{{ car }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Manufacturer</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = "body_style" required  class="validate">
+                  <option value="" disabled selected>Choose Body Style</option>
+                    {% for style in body %}
+                      <option value = "{{ style }}">{{ style }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Body Style</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div> 
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name="engine_type" required>
+                  <option value="" disabled selected>Choose Engine Type</option>
+                    {% for eng in engine %}
+                      <option value = "{{ eng }}">{{ eng }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Engine Type</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name="aspiration" required>
+                  <option value="" disabled selected>Choose Aspiration</option>
+                    {% for level in aspiration %}
+                      <option value = "{{ level }}">{{ level }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Aspiration Level</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">      
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = "fuel_system" required>
+                  <option value="" disabled selected>Choose Fuel System</option>
+                    {% for sys in fuelsys %}
+                      <option value = "{{ sys }}">{{ sys }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Fuel Injection</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = "num_of_cylinders" required>
+                  <option value="" disabled selected>Number of Cylinders</option>
+                    {% for cylinder in cylinders %}
+                      <option value = "{{ cylinder }}">{{ cylinder }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Cylinders</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div> 
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = "num_of_doors" required>
+                  <option value="" disabled selected>Choose No. of Doors</option>
+                    {% for door in doors %}
+                      <option value = "{{ door }}">{{ door }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Number of Doors</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = "drive_wheels" required>
+                  <option value="" disabled selected>Choose Wheel Drive</option>
+                    {% for each_drive in drive %}
+                      <option value = "{{ each_drive }}">{% if each_drive=='rwd' %}{{ "Rear Wheel Drive" }}
+                        {% elif each_drive=='fwd' %}{{ "Front Wheel Drive" }}
+                        {% else %}{{ "Four Wheel Drive" }}
+                        {% endif %}
+                      </option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Drivetrain</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">      
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = engine_location required>
+                  <option value="" disabled selected>Pick Engine Location</option>
+                    {% for loc in location %}
+                      <option value = "{{ loc }}">{{ loc }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Engine Location</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = fuel_type required>
+                  <option value="" disabled selected>Choose Fuel Type</option>
+                    {% for fuel in fuels %}
+                      <option value = "{{ fuel }}">{{ fuel }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Fuel Type</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div> 
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text">
+              <div class="input-field">
+                <select name = symboling required>
+                  <option value="" disabled selected>Higher Value = Riskier</option>
+                    {% for symbol in symboling %}
+                      <option value = "{{ symbol }}">{{ symbol }}</option>
+                    {% endfor %}
+                </select>
+                <label class="white-text">Risk Factor Symboling</label>
+                <span class="error">Please choose an option</span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Normalized Losses</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="1" name=normalized_losses id="normalized-losses" min=65 max=256 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">      
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Wheel Base</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=wheel_base id="wheel-base" min=86.6 max=120.9 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Wheel Length</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=length id="length" min=141.1 max=208.1 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div> 
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Wheel Width</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=width id="width" min=60.3 max=72.3 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Wheel Height</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=height id="height" min=47.8 max=59.8 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">      
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">City Mileage (Miles / Gallon)</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=city_mpg id="city-mpg" min=13 max=49 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Highway Mileage (Miles / Gallon)</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=highway_mpg id="highway-mpg" min=16 max=54 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div> 
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Bore Diameter</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.01" name=bore id="bore" min=2.54 max=3.94 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Stroke Length</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.01" name=stroke id="stroke" min=2.07 max=4.17 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">      
+        <div class="col s12 m4">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Horsepower</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="1" name =horsepower id="horsepower" min=48 max=288 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m4">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Engine Size</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="1" name=engine_size id="engine-size" min=61 max=326 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div> 
+        <div class="col s12 m4">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Compression Ratio</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="0.1" name=compression_ratio id="compression-ratio" min=7 max=23 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">      
+        <div class="col s12 m6">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Curb Weight</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="1" name=curb_weight id="curb-weight" min=1488 max=4066 />
+                </p>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="card-panel small teal">
+            <span class="white-text"><label class="white-text">Peak RPM</label>
+              <div class="input-field">
+                <p class="range-field">
+                  <input type="range" step="1" name=peak_rpm id="peak-rpm" min=4150 max=6600 />
+                </p>
+              </div>
+            </span>
+          </div>
+      </div>  
+      <br><br>
+      <div class="container valign-wrapper">
+        <div class="row center">
+          <a id="submit-button" class="btn submit-btn">Submit</a>
+        </div>
+      </div>
+    </form>
+    <div class="divider"></div>
+
+
+
+  <footer class="page-footer teal">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h6 class="white-text"></h6>
+        </div>        
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="brown-text text-lighten-3" href="https://swapneilpatil.medium.com/">Swapnil Patil</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{{ url_for('static', filename='css_image/js/materialize.js')}}"></script>
+  <script src="{{ url_for('static', filename='css_image/js/init.js')}}"></script>
+  <script>
+    $(document).ready(function(){
+      // Initialise the select
+      $('select').formSelect();
+
+      $('#submit-button').on('click', function(e){
+        e.preventDefault(); // Prevent form submission
+        var isValid = true;
+
+        $('select').each(function(){
+          if ($(this).val() === null) {
+            $(this).closest('.input-field').find('.error').show();
+            $(this).closest('.select-wrapper').addClass('invalid');
+            isValid = false;
+          } else {
+            $(this).closest('.input-field').find('.error').hide();
+            $(this).closest('.select-wrapper').removeClass('invalid');
+          }
+        });
+
+        if (isValid) {
+          $('#LoneForm').submit();
+        }
+      });
+    });
+  </script>
+  
+  </body>
+</html>

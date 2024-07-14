@@ -1,0 +1,52 @@
+altair==5.3.0
+attrs==23.2.0
+blinker @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/blinker_1699474692786/work
+cachetools==5.3.3
+certifi==2024.7.4
+charset-normalizer==3.3.2
+click @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/click_1699473800648/work
+colorama @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/colorama_1699472650914/work
+Flask @ file:///C:/b/abs_f9w7doyu0h/croot/flask_1716545924884/work
+gitdb==4.0.11
+GitPython==3.1.43
+idna==3.7
+itsdangerous @ file:///C:/b/abs_c4vwgdr5yn/croot/itsdangerous_1716533399914/work
+Jinja2 @ file:///C:/b/abs_92fccttino/croot/jinja2_1716993447201/work
+joblib==1.4.2
+jsonschema==4.22.0
+jsonschema-specifications==2023.12.1
+markdown-it-py==3.0.0
+MarkupSafe @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/markupsafe_1707425732791/work
+mdurl==0.1.2
+nbconvert==7.16.4
+numpy==2.0.0
+packaging==24.1
+pandas==2.2.2
+pillow==10.4.0
+protobuf==5.27.2
+pyarrow==16.1.0
+pydeck==0.9.1
+Pygments==2.18.0
+python-dateutil==2.9.0.post0
+pytz==2024.1
+referencing==0.35.1
+requests==2.32.3
+rich==13.7.1
+rpds-py==0.18.1
+scikit-learn==1.5.1
+scipy==1.14.0
+setuptools==69.5.1
+six==1.16.0
+smmap==5.0.1
+streamlit==1.36.0
+tenacity==8.5.0
+threadpoolctl==3.5.0
+toml==0.10.2
+toolz==0.12.1
+tornado==6.4.1
+typing_extensions==4.12.2
+tzdata==2024.1
+urllib3==2.2.2
+watchdog==4.0.1
+Werkzeug @ file:///C:/b/abs_8bittcw9jr/croot/werkzeug_1716533366070/work
+wheel==0.43.0

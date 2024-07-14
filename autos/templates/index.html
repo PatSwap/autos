@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Autos Dataset Price Prediction</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css_image/css/materialize.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{ url_for('static', filename='css_image/css/style.css')}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>     
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+    
+        <h1 class="header center text-lighten-2">Car Price Prediction</h1>
+          <div class="row center">
+            <h5 class="header col s12 light">Predicting the Price of the Autos Dataset using Supervised ML Models</h5>
+          </div>
+        <div class="row center">
+          <a href="/predict" id="download-button" class="btn-large waves-effect waves-light lime darken-4">Start Predicting!</a>
+        </div>
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img class="responsive-img" src="{{ url_for('static', filename='css_image/car_background.jpg')}}" alt="Unsplashed background img 1"></div>
+  </div>
+
+  <div class="divider"></div>
+  <footer class="page-footer lime darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About The Dataset</h5>
+          <p class="grey-text text-lighten-4">This Dataset is about cars from back in 1985.
+            <br>It is a mix of continuous, ordinal and nominal variables,
+            <br> which are all used to predict the price of the car.<br>
+            <br> There are 205 observations, with 26 attributes
+            <br> including the target variable.
+
+
+        </div>
+
+        <div class="col l6 s12">
+          <h5 class="white-text">The dataset consists of 3 types of entities:</h5>
+          <ol type="i">
+            <li><a class="white-text">the specification of an auto</a></li>
+            <li><a class="white-text">assigned insurance risk rating</a></li>
+            <li><a class="white-text">normalized losses compared to other cars</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="amber-text" href="https://swapneilpatil.medium.com/">Swapnil Patil</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{{ url_for('static', filename='css_image/js/materialize.js')}}"></script>
+  <script src="{{ url_for('static', filename='css_image/js/init.js')}}"></script>
+
+  </body>
+</html>
