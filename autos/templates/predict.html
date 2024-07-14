@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=1024"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Car Price Predictions</title>
 
   <!-- CSS  -->
@@ -65,7 +65,8 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br><br>
-        <div class="parallax"> <img class="responsive-img" src="{{ url_for('static', filename='css_image/car_background_calc.jpg')}}">
+        <div class="parallax">
+          <img img style="object-fit: contain; max-width: 100%;"  class="responsive-img" src="{{ url_for('static', filename='css_image/car_background_calc.jpg')}}">
         </div>
         <style>
           
@@ -512,13 +513,6 @@ h5 {
       });
     });
   </script>
-  <script>
-    var viewMode = getCookie("view-mode");
-if(viewMode == "desktop"){
-    viewport.setAttribute('content', 'width=1024');
-}else if (viewMode == "mobile"){
-    viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
-}
-  </script>
+  
   </body>
 </html>

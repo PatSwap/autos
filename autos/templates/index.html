@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=1024"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Autos Dataset Price Prediction</title>
 
   <!-- CSS  -->
@@ -70,13 +70,6 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{{ url_for('static', filename='css_image/js/materialize.js')}}"></script>
   <script src="{{ url_for('static', filename='css_image/js/init.js')}}"></script>
-  <script>
-    var viewMode = getCookie("view-mode");
-    if(viewMode == "desktop"){
-    viewport.setAttribute('content', 'width=1024');
-    }else if (viewMode == "mobile"){
-    viewport.setAttribute('content', 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no');
-    }
-  </script>
+
   </body>
 </html>
