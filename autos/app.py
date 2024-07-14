@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
-from utils import utils
-from utils.utils import PriceModel
+from autos.utils import utils
+from autos.utils.utils import PriceModel
 
 app = Flask(__name__)
 

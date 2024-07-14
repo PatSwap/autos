@@ -58,13 +58,13 @@ class PriceModel():
         self.fuel_system       = fuel_system
 
     def LoadUtils(self):
-        with open(r'utils/cat_encoder.pkl','rb') as f1:
+        with open(r'autos/utils/cat_encoder.pkl','rb') as f1:
             cat_encoder = pickle.load(f1)
-        with open(r'utils/ord_encoder.pkl','rb') as f2:
+        with open(r'autos/utils/ord_encoder.pkl','rb') as f2:
             ord_encoder = pickle.load(f2)
-        with open(r'utils/scaler.pkl','rb') as f3:
+        with open(r'autos/utils/scaler.pkl','rb') as f3:
             scaler = pickle.load(f3)
-        with open(r'utils/model_auto_knn.pkl','rb') as f4:
+        with open(r'autos/utils/model_auto_knn.pkl','rb') as f4:
             model = pickle.load(f4)
         return cat_encoder, ord_encoder, scaler, model
 
@@ -263,10 +263,3 @@ class Values():
         sym = [-3, -2, -1, 0, 1, 2, 3]
         return sym
 
-
-if __name__ == '__main__':
-   import pandas as pd
-   df = pd.read_csv('autos_dataset.csv')
-   print(df.columns)
-   print(df['horsepower'].unique())
-#   print(df['engine-size'].unique())

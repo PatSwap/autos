@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
-from utils import utils
-from utils.utils import PriceModel
+from autos.utils import utils
+from autos.utils.utils import PriceModel
 
 main = Blueprint('main', __name__)
 
